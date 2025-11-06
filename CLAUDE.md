@@ -124,7 +124,10 @@ MarketBoost sends property alerts
 1. Reference CHECKLIST.md for specific implementation steps
 2. Keep user informed of progress
 3. Test locally before moving to next step
-4. Update CONVERSATION_HISTORY.md after major milestones
+4. **IMPORTANT:** Update CHECKLIST.md immediately when tasks are completed
+   - Mark items with [x] as soon as they're done
+   - This keeps the checklist current and prevents confusion
+5. Update CONVERSATION_HISTORY.md after major milestones (end of phase/session)
 
 ### Making Decisions
 1. Consult PROJECT_OVERVIEW.md for business context
