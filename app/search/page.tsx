@@ -17,7 +17,7 @@ export default function SearchPage() {
           </h2>
           <p className="text-sm text-gray-500 max-w-md mx-auto">
             After you sign up for iHomefinder and get your widget ID,
-            you'll embed the V10 search widget here.
+            you&apos;ll embed the V10 search widget here.
             <br /><br />
             The widget will provide full MLS search, property details,
             and handle user registration automatically.
