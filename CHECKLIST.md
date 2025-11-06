@@ -21,12 +21,12 @@
 ## Phase 1: Next.js Project Setup (Week 1)
 
 ### Initialize Project
-- [ ] Create new Next.js project with TypeScript
+- [x] Create new Next.js project with TypeScript
   ```bash
   npx create-next-app@latest your-project-name --typescript --tailwind --app
   ```
-- [ ] Initialize git repository
-- [ ] Create `.env.local` for environment variables
+- [x] Initialize git repository
+- [x] Create `.env.local` for environment variables
 - [ ] Push to GitHub (for Vercel auto-deploy)
 
 ### Basic Project Structure
@@ -43,14 +43,14 @@
 ```
 
 ### Environment Variables (Local Development)
-- [ ] Create `.env.local` in project root (Next.js adds to .gitignore automatically)
-- [ ] Add environment variables for local development:
+- [x] Create `.env.local` in project root (Next.js adds to .gitignore automatically)
+- [x] Add environment variables for local development:
   ```env
   # .env.local (NEVER commit this file)
   NEXT_PUBLIC_IHOMEFINDER_WIDGET_ID=your_widget_id_here
   NEXT_PUBLIC_FUB_PIXEL_ID=your_fub_pixel_id_here
   ```
-- [ ] Test variables work locally: `npm run dev`
+- [x] Test variables work locally: `npm run dev`
 - [ ] **Note:** You'll add the same variables to Vercel dashboard later (Phase 6)
 
 **Understanding Public vs Private Variables:**
@@ -63,12 +63,13 @@
 ## Phase 2: Build Core Pages (Week 1-2)
 
 ### Homepage (`/app/page.tsx`)
-- [ ] Create hero section with value proposition
-- [ ] Add search preview or CTA button
-- [ ] Link to search page
-- [ ] Keep it simple and fast
+- [x] Create hero section with value proposition
+- [x] Add search preview or CTA button
+- [x] Link to search page
+- [x] Keep it simple and fast
 
 ### Search Page (`/app/search/page.tsx`)
+- [x] Create search page structure with placeholder for widget
 - [ ] Embed iHomefinder V10 search widget
   - [ ] Get widget embed code from iHomefinder dashboard
   - [ ] Add to page using `<Script>` component or direct embed
@@ -76,14 +77,14 @@
   - [ ] Test lead registration flow
 
 ### About Page (`/app/about/page.tsx`)
-- [ ] Brief intro about your service
-- [ ] Why choose you (luxury focus, personalized service)
-- [ ] Contact information
+- [x] Brief intro about your service
+- [x] Why choose you (luxury focus, personalized service)
+- [x] Contact information
 
 ### Navigation
-- [ ] Create `Header` component with links
-- [ ] Create `Footer` component with legal/contact info
-- [ ] Add to root layout
+- [x] Create `Header` component with links
+- [x] Create `Footer` component with legal/contact info
+- [x] Add to root layout
 
 ---
 
