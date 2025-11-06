@@ -27,7 +27,7 @@
   ```
 - [x] Initialize git repository
 - [x] Create `.env.local` for environment variables
-- [ ] Push to GitHub (for Vercel auto-deploy)
+- [x] Push to GitHub (for Vercel auto-deploy)
 
 ### Basic Project Structure
 ```
@@ -164,14 +164,14 @@
 ## Phase 6: Deploy & Test (Week 3)
 
 ### Vercel Deployment
-- [ ] Connect GitHub repo to Vercel
-- [ ] Configure environment variables in Vercel dashboard:
-  - [ ] Go to Project Settings → Environment Variables
-  - [ ] Add `NEXT_PUBLIC_IHOMEFINDER_WIDGET_ID` (same value as .env.local)
-  - [ ] Add `NEXT_PUBLIC_FUB_PIXEL_ID` (same value as .env.local)
-  - [ ] Select all environments: Production, Preview, Development
-- [ ] Deploy to production
-- [ ] Verify site loads at your domain
+- [x] Connect GitHub repo to Vercel
+- [x] Configure environment variables in Vercel dashboard:
+  - [x] Go to Project Settings → Environment Variables
+  - [x] Add `NEXT_PUBLIC_IHOMEFINDER_WIDGET_ID` (same value as .env.local)
+  - [x] Add `NEXT_PUBLIC_FUB_PIXEL_ID` (same value as .env.local)
+  - [x] Select all environments: Production, Preview, Development
+- [x] Deploy to production (waiting for successful build)
+- [x] Verify site loads at your domain
 - [ ] Test on mobile devices
 - [ ] Verify environment variables are working (check widgets/pixels load)
 
