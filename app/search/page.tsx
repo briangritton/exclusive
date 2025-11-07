@@ -1,4 +1,89 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
 export default function SearchPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const scriptsLoadedRef = useRef(false);
+
+  useEffect(() => {
+    // Only load scripts once
+    if (scriptsLoadedRef.current) return;
+    scriptsLoadedRef.current = true;
+
+    const activationToken = process.env.NEXT_PUBLIC_IHOMEFINDER_ACTIVATION_TOKEN;
+
+    // Load iHomefinder Kestrel script
+    const script1 = document.createElement('script');
+    script1.src = 'https://kestrel.idxhome.com/ihf-kestrel.js';
+    script1.async = true;
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.ihfKestrel = window.ihfKestrel || {};
+      ihfKestrel.config = {
+        platform: "Property search self hosted",
+        activationToken: "${activationToken}"
+      };
+    `;
+
+    document.head.appendChild(script2);
+    document.head.appendChild(script1);
+
+    // Wait for scripts to load and render widget
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+
+    const loadWidget = () => {
+      attempts++;
+      const ihfKestrel = (window as any).ihfKestrel;
+
+      if (ihfKestrel && ihfKestrel.render && containerRef.current) {
+        try {
+          // Render listing search widget
+          const widget = ihfKestrel.render({
+            "component": "listingSearchWidget"
+          });
+
+          if (widget) {
+            containerRef.current.innerHTML = '';
+            containerRef.current.appendChild(widget);
+            setLoading(false);
+          } else {
+            if (attempts < maxAttempts) {
+              setTimeout(loadWidget, 100);
+            } else {
+              setError('Unable to load property search widget');
+              setLoading(false);
+            }
+          }
+        } catch (err) {
+          console.error('Error rendering widget:', err);
+          setError('Failed to load property search widget');
+          setLoading(false);
+        }
+      } else {
+        // Retry after a short delay
+        if (attempts < maxAttempts) {
+          setTimeout(loadWidget, 100);
+        } else {
+          setError('Property search temporarily unavailable');
+          setLoading(false);
+        }
+      }
+    };
+
+    // Start trying to load the widget after scripts have had time to initialize
+    setTimeout(loadWidget, 500);
+
+    // Cleanup function
+    return () => {
+      // Note: We don't remove scripts on cleanup to avoid issues with fast refresh
+    };
+  }, []);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">
@@ -8,41 +93,22 @@ export default function SearchPage() {
         </p>
       </div>
 
-      {/* iHomefinder Widget Placeholder */}
-      <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-12">
-        <div className="text-center">
-          <div className="text-4xl mb-4">🔍</div>
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            iHomefinder Widget Goes Here
-          </h2>
-          <p className="text-sm text-gray-500 max-w-md mx-auto">
-            After you sign up for iHomefinder and get your widget ID,
-            you&apos;ll embed the V10 search widget here.
-            <br /><br />
-            The widget will provide full MLS search, property details,
-            and handle user registration automatically.
-          </p>
-          <div className="mt-6 text-xs text-gray-400">
-            <p>Environment Variable Needed:</p>
-            <code className="bg-white px-2 py-1 rounded border border-gray-200">
-              NEXT_PUBLIC_IHOMEFINDER_WIDGET_ID
-            </code>
-          </div>
+      {/* Loading state */}
+      {loading && !error && (
+        <div className="text-center py-12">
+          <div className="text-gray-500">Loading property search...</div>
         </div>
-      </div>
+      )}
 
-      {/* Instructions for later */}
-      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h3 className="text-sm font-semibold text-blue-900 mb-2">
-          📋 Next Steps (From CHECKLIST.md - Phase 3):
-        </h3>
-        <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
-          <li>Sign up for iHomefinder Lead Essentials</li>
-          <li>Get your widget embed code from their dashboard</li>
-          <li>Add widget ID to .env.local</li>
-          <li>Replace this placeholder with the actual widget</li>
-        </ol>
-      </div>
+      {/* Error state */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p className="text-red-800">{error}</p>
+        </div>
+      )}
+
+      {/* Widget container */}
+      <div ref={containerRef} id="ihf-widget-container"></div>
     </div>
   );
 }
