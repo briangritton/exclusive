@@ -2,6 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+// Declare iHomefinder types for window object
+declare global {
+  interface Window {
+    ihfKestrel?: {
+      render: (config?: { component?: string }) => HTMLElement;
+    };
+  }
+}
+
 export default function SearchPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -38,7 +47,7 @@ export default function SearchPage() {
 
     const loadWidget = () => {
       attempts++;
-      const ihfKestrel = (window as any).ihfKestrel;
+      const ihfKestrel = window.ihfKestrel;
 
       if (ihfKestrel && ihfKestrel.render && containerRef.current) {
         try {
