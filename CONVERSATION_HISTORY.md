@@ -386,3 +386,72 @@ User registers → iHomefinder CRM → FUB (via email parser)
 ---
 
 **Status:** MVP site is LIVE on Vercel! Ready for account setup and widget integration, or styling improvements.
+
+---
+
+## iHomefinder Integration Session (2025-11-06/07)
+
+### Major Accomplishments
+**iHomefinder Widget Successfully Integrated! 🎉**
+
+**What We Built:**
+1. **iHomefinder Account Setup**
+   - Created iHomefinder Lead Essentials account (demo)
+   - Configured Version & Platform settings
+   - Got activation token: `b2a26d9e-543f-4c54-a1f5-6bb49ab22e6f`
+
+2. **Widget Integration**
+   - Implemented dynamic script loading for iHomefinder Kestrel
+   - Added proper TypeScript type declarations
+   - Configured listing search widget rendering
+   - Widget displays perfectly on localhost with real MLS data
+
+3. **Custom Domain Deployment**
+   - Connected exclusivecahomes.com to Vercel
+   - Updated GoDaddy DNS records (A and CNAME)
+   - Site live at https://www.exclusivecahomes.com
+   - Automatic HTTPS and deployment from GitHub
+
+4. **Fixed Multiple Issues**
+   - Corrected activation token (typo in original)
+   - Fixed TypeScript linting errors
+   - Resolved hydration errors by moving to client-side rendering
+   - Debugged platform configuration
+
+### Current Status
+- ✅ **Localhost:** Widget working perfectly with 1000+ Northern California listings
+- ⏸️ **Production:** Paused until full iHomefinder subscription activation
+  - Demo account works on localhost only (expected behavior)
+  - Production deployment ready, will work once subscription activated
+
+### Technical Implementation
+**Architecture:**
+- Client-side widget rendering to avoid SSR issues
+- Dynamic script injection with proper loading sequence
+- TypeScript type safety for iHomefinder window object
+- Environment variable management (local + Vercel)
+
+**Files Modified:**
+- `app/search/page.tsx` - Widget implementation
+- `app/layout.tsx` - Simplified (removed server-side scripts)
+- `.env.local` - Added activation token
+- Vercel environment variables updated
+
+### What Works Now
+✅ Local development with full widget functionality
+✅ Custom domain (exclusivecahomes.com) connected
+✅ Auto-deployment from GitHub to Vercel
+✅ Property search with map, filters, real listings
+✅ Responsive design
+✅ Fast load times
+
+### Next Steps (When Ready)
+1. Activate full iHomefinder subscription
+2. Production widget will work automatically
+3. Configure lead capture settings
+4. Set up Follow Up Boss integration
+5. Enable MarketBoost property alerts
+
+---
+
+**Status:** Development environment complete and fully functional. Production ready pending iHomefinder subscription activation.
