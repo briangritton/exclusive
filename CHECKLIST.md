@@ -91,12 +91,14 @@
 ## Phase 3: iHomefinder Integration (Week 2)
 
 ### Widget Setup
-- [ ] Log into iHomefinder dashboard
-- [ ] Navigate to "Widgets" or "Integration" section
-- [ ] Copy V10 search widget embed code
-- [ ] Paste into your search page
-- [ ] Verify search displays correctly
+- [x] Log into iHomefinder dashboard
+- [x] Navigate to "Widgets" or "Integration" section
+- [x] Configure Version & Platform settings
+- [x] Get activation token
+- [x] Implement widget rendering on search page
+- [x] Verify search displays correctly locally
 - [ ] Test on mobile
+- [ ] Deploy to production and verify
 
 ### Lead Capture Configuration
 - [ ] Configure registration prompts in iHomefinder
