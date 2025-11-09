@@ -33,7 +33,7 @@ export default function SearchPage() {
     script2.innerHTML = `
       window.ihfKestrel = window.ihfKestrel || {};
       ihfKestrel.config = {
-        platform: "Property search self hosted",
+        platform: "",
         activationToken: "${activationToken}"
       };
     `;
