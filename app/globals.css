@@ -7,17 +7,79 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Widget isolation layer - removed to avoid CSS conflicts */
+/* We'll let iHomefinder widgets use their own styles */
+
+/* iHomefinder search widget - force 50/50 split screen layout */
+/* Target multiple potential selectors for maximum compatibility */
+#ihf-widget-container .ui-grid-xs-4,
+#ihf-widget-container [class*="ui-grid-xs-4"],
+.ihf-widget-isolation .ui-grid-xs-4,
+[class*="ui-grid-xs-4"] {
+  max-width: 50% !important;
+  flex-basis: 50% !important;
+  width: 50% !important;
+  min-height: 100vh !important;
+}
+
+#ihf-widget-container .ui-grid-xs-8,
+#ihf-widget-container [class*="ui-grid-xs-8"],
+.ihf-widget-isolation .ui-grid-xs-8,
+[class*="ui-grid-xs-8"] {
+  max-width: 50% !important;
+  flex-basis: 50% !important;
+  width: 50% !important;
+}
+
+/* Ensure parent container uses full height and flex layout */
+#ihf-widget-container .ui-grid-container,
+#ihf-widget-container [class*="ui-grid-container"],
+.ihf-widget-isolation .ui-grid-container,
+[class*="ui-grid-container"] {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+}
+
+/* Make map sticky/fill height */
+#ihf-widget-container .ui-grid-xs-4 > div,
+.ihf-widget-isolation .ui-grid-xs-4 > div {
+  min-height: 100vh !important;
+  position: sticky !important;
+  top: 0 !important;
+}
+
+/* Target any grid system being used */
+#ihf-widget-container div[class*="col-"],
+#ihf-widget-container div[class*="grid-"] {
+  box-sizing: border-box !important;
+}
+
+/* Mobile responsive - stack vertically */
+@media (max-width: 768px) {
+  #ihf-widget-container .ui-grid-xs-4,
+  #ihf-widget-container [class*="ui-grid-xs-4"],
+  .ihf-widget-isolation .ui-grid-xs-4,
+  #ihf-widget-container .ui-grid-xs-8,
+  #ihf-widget-container [class*="ui-grid-xs-8"],
+  .ihf-widget-isolation .ui-grid-xs-8 {
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  #ihf-widget-container .ui-grid-container,
+  .ihf-widget-isolation .ui-grid-container {
+    flex-wrap: wrap !important;
+  }
 }
 
 @layer utilities {

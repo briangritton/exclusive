@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export default function SearchPage() {
+export default function ListingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,17 +41,17 @@ export default function SearchPage() {
     document.head.appendChild(script2);
     document.head.appendChild(script1);
 
-    // Wait for scripts to load and render SEO page
+    // Wait for scripts to load and render widget
     let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
+    const maxAttempts = 50;
 
-    const loadPage = () => {
+    const loadWidget = () => {
       attempts++;
       const ihfKestrel = window.ihfKestrel;
 
       if (ihfKestrel && ihfKestrel.render && containerRef.current) {
         try {
-          // Render SEO page - iHomefinder auto-detects "Search Results" from /search URL
+          // Render SEO page - iHomefinder auto-detects /listing from URL
           const content = ihfKestrel.render();
 
           if (content) {
@@ -60,55 +60,56 @@ export default function SearchPage() {
             setLoading(false);
           } else {
             if (attempts < maxAttempts) {
-              setTimeout(loadPage, 100);
+              setTimeout(loadWidget, 100);
             } else {
-              setError('Unable to load property search');
+              setError('Unable to load property details');
               setLoading(false);
             }
           }
         } catch (err) {
           console.error('Error rendering page:', err);
-          setError('Failed to load property search');
+          setError('Failed to load property details');
           setLoading(false);
         }
       } else {
-        // Retry after a short delay
         if (attempts < maxAttempts) {
-          setTimeout(loadPage, 100);
+          setTimeout(loadWidget, 100);
         } else {
-          setError('Property search temporarily unavailable');
+          setError('Property details temporarily unavailable');
           setLoading(false);
         }
       }
     };
 
-    // Start trying to load the page after scripts have had time to initialize
-    setTimeout(loadPage, 500);
+    setTimeout(loadWidget, 500);
 
-    // Cleanup function
     return () => {
-      // Note: We don't remove scripts on cleanup to avoid issues with fast refresh
+      // Cleanup
     };
   }, []);
 
   return (
-    <div>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Property Details</h1>
+      </div>
+
       {/* Loading state */}
       {loading && !error && (
-        <div style={{ textAlign: 'center', padding: '3rem 0' }}>
-          <div>Loading property search...</div>
+        <div className="text-center py-12">
+          <div className="text-gray-500">Loading property details...</div>
         </div>
       )}
 
       {/* Error state */}
       {error && (
-        <div style={{ textAlign: 'center', padding: '1.5rem', margin: '1rem' }}>
-          <p>{error}</p>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p className="text-red-800">{error}</p>
         </div>
       )}
 
-      {/* SEO page container */}
-      <div className="ihf-widget-isolation" ref={containerRef} id="ihf-widget-container"></div>
+      {/* Widget container */}
+      <div className="ihf-widget-isolation" ref={containerRef} id="listing-detail-container"></div>
     </div>
   );
 }
