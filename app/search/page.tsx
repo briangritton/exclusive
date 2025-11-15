@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 declare global {
   interface Window {
     ihfKestrel?: {
-      render: (config?: Record<string, any>) => HTMLElement;
+      render: (config?: { component?: string; style?: string; [key: string]: string | undefined }) => HTMLElement;
     };
   }
 }
